@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import { useLang } from './LanguageContext'
@@ -116,9 +116,26 @@ function fadeUp(delay: number) {
   }
 }
 
+const CV_LINKS: Record<string, string> = {
+  en: 'https://drive.google.com/uc?export=download&id=1350SLoMOtZOokFLEBv4GHGkIataQBBCE',
+  ru: 'https://drive.google.com/uc?export=download&id=1T4kQjkIzAwDxP0QWEizmCRbD0aGn8mCR',
+}
+
 export function Hero() {
   const { lang } = useLang()
   const hero = t[lang].hero
+  const [cvOpen, setCvOpen] = useState(false)
+  const cvRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (cvRef.current && !cvRef.current.contains(e.target as Node)) {
+        setCvOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   return (
     <section className="relative min-h-screen overflow-hidden flex items-center">
@@ -155,13 +172,39 @@ export function Hero() {
           >
             {hero.cta} →
           </a>
-          <a
-            href={lang === 'ru' ? '/cv-ru.pdf' : '/cv-en.pdf'}
-            download
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-sm font-medium hover:bg-foreground/5 transition-colors"
-          >
-            {hero.cv}
-          </a>
+          <div ref={cvRef} className="relative">
+            <button
+              onClick={() => setCvOpen(v => !v)}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border text-sm font-medium hover:bg-foreground/5 transition-colors"
+            >
+              {hero.cv}
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                className={`transition-transform duration-200 ${cvOpen ? 'rotate-180' : ''}`}
+              >
+                <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            {cvOpen && (
+              <div className="absolute left-0 mt-2 w-36 rounded-xl border border-border bg-background shadow-lg overflow-hidden z-50">
+                {(['en', 'ru'] as const).map(l => (
+                  <a
+                    key={l}
+                    href={CV_LINKS[l]}
+                    download
+                    onClick={() => setCvOpen(false)}
+                    className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-foreground/5 transition-colors"
+                  >
+                    <span className="font-medium">{l.toUpperCase()}</span>
+                    <span className="text-muted text-xs">{l === 'en' ? 'English' : 'Русский'}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
         </motion.div>
       </div>
     </section>
