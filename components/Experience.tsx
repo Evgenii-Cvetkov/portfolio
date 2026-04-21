@@ -3,15 +3,11 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLang } from './LanguageContext'
-
-function nb(text: string): string {
-  // Non-breaking space after short Russian prepositions and conjunctions
-  return text.replace(/(\s|^)(в|и|а|к|с|о|у|я|но|не|ни|из|до|от|на|по|за|об|со|из-за|из-под|над|под|при|про|без|для|или|это|уже|ещё|чем|как|что|бы|же|ли|то)\s/g, '$1$2\u00A0')
-}
+import { nb } from '@/lib/nb'
 
 function HighlightedText({ text }: { text: string }) {
   const processed = nb(text)
-  const regex = /(\d+(?:[\s\u00A0]\d+)*\+?)/g
+  const regex = /(?<![A-Za-zА-Яа-яЁё])(\d+(?:[\s\u00A0]\d+)*\+?)(?![A-Za-zА-Яа-яЁё])/g
   const parts: React.ReactNode[] = []
   let lastIndex = 0
   let match

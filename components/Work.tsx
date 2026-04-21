@@ -7,6 +7,7 @@ import { motion } from 'framer-motion'
 import { useLang } from './LanguageContext'
 import { t } from '@/lib/translations'
 import { projects, type Project, type ResultPart } from '@/lib/projects'
+import { nb } from '@/lib/nb'
 import { UnificationScene } from './UnificationScene'
 import { CommercialProposalScene } from './CommercialProposalScene'
 
@@ -72,13 +73,13 @@ function ProjectCard({
             <h3 className="text-2xl font-semibold tracking-tight mb-2 group-hover:opacity-70 transition-opacity">
               {project.title}
             </h3>
-            <p className="text-base text-muted leading-relaxed">{project.subtitle}</p>
+            <p className="text-base text-muted leading-relaxed">{nb(project.subtitle)}</p>
           </div>
 
           <div className="space-y-4 pt-2">
             <div>
               <p className="text-xs text-muted tracking-widest uppercase mb-1.5">{labels.tasksLabel}</p>
-              <p className="text-sm text-foreground leading-relaxed">{project.tasks}</p>
+              <p className="text-sm text-foreground leading-relaxed">{nb(project.tasks)}</p>
             </div>
             <div>
               <p className="text-xs text-muted tracking-widest uppercase mb-1.5">{labels.resultLabel}</p>

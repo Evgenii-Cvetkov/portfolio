@@ -5,6 +5,7 @@ import { Work } from './Work'
 import { About } from './About'
 import { Contact } from './Contact'
 import { Experience } from './Experience'
+import { Speaking } from './Speaking'
 
 export function PageContent() {
   const { role } = useRole()
@@ -16,15 +17,17 @@ export function PageContent() {
         <Experience />
         <About />
         <Work />
+        <Speaking />
         <Contact />
       </>
     )
   }
 
-  // Design Lead: Work → Experience → About → Contact
+  // Design Lead: Work → Speaking → Experience → About → Contact
   return (
     <>
       <Work />
+      <Speaking />
       <Experience />
       <About />
       <Contact />

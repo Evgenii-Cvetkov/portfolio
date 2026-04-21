@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useLang } from './LanguageContext'
 import { useRole } from './RoleContext'
 import { t } from '@/lib/translations'
+import { nb } from '@/lib/nb'
 
 const hardSkills = ['Figma', 'Claude Code', 'ChatGPT', 'Cursor', 'AI Prototyping', 'Figma Make', 'Kaiten']
 
@@ -57,9 +58,9 @@ export function About() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <p className="text-muted leading-relaxed">{bio1}</p>
-          <p className="text-muted leading-relaxed">{bio2}</p>
-          {bio3 && <p className="text-muted leading-relaxed">{bio3}</p>}
+          <p className="text-muted leading-relaxed">{nb(bio1)}</p>
+          <p className="text-muted leading-relaxed">{nb(bio2)}</p>
+          {bio3 && <p className="text-muted leading-relaxed">{nb(bio3)}</p>}
 
           <div className="pt-4 space-y-6">
             <div>
