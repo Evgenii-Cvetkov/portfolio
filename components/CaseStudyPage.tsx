@@ -8,8 +8,6 @@ import { createPortal } from 'react-dom'
 import { useLang } from './LanguageContext'
 import { Navbar } from './Navbar'
 import { StickyBar } from './StickyBar'
-import { UnificationScene } from './UnificationScene'
-import { CommercialProposalScene } from './CommercialProposalScene'
 import { projects, type ResultPart, type RichSection } from '@/lib/projects'
 
 function Lightbox({ src, onClose }: { src: string; onClose: () => void }) {
@@ -171,7 +169,11 @@ function RichContent({ sections, lang }: { sections: RichSection[]; lang: string
               {section.heading && (
                 <p className="text-xs text-muted tracking-widest uppercase mb-4">{section.heading}</p>
               )}
-              <p className="text-lg leading-relaxed max-w-2xl">{section.body}</p>
+              <div className="max-w-2xl space-y-4">
+                {section.body?.split('\n\n').map((para, j) => (
+                  <p key={j} className="text-lg leading-relaxed">{para}</p>
+                ))}
+              </div>
             </motion.div>
           )
         }
@@ -430,11 +432,9 @@ export function CaseStudyPage() {
           className="w-full mb-16 relative"
           style={{ height: 'clamp(260px, 40vw, 480px)', overflow: 'hidden' }}
         >
-          {project.hasVisual ? (
-            slug === 'commercial-proposal' ? <CommercialProposalScene size="720%" /> : <UnificationScene />
-          ) : project.image ? (
+          {project.image ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={project.image} alt={project.title} className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain' : 'object-cover object-left-top'}`} />
+            <img src={project.image} alt={project.title} className={`w-full h-full ${project.imageFit === 'contain' ? 'object-contain' : `object-cover ${project.imagePosition === 'center' ? 'object-center' : 'object-left-top'}`}`} />
           ) : (
             <div className="w-full h-full bg-foreground/5 flex items-center justify-center">
               <span className="text-4xl font-mono text-muted/20">{project.number}</span>

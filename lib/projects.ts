@@ -35,15 +35,79 @@ export interface Project {
   year: string
   image?: string
   imageFit?: 'cover' | 'contain'
-  hasVisual?: boolean
+  imagePosition?: 'center' | 'left-top'
   richContent?: RichSection[]
 }
 
 export const projects: { ru: Project[]; en: Project[] } = {
   ru: [
     {
-      slug: 'supplier-portal',
+      slug: 'ai-pipeline',
       number: '01',
+      title: 'Пайплайн из ИИ-агентов',
+      subtitle: 'Автоматизация процесса от постановки задачи до передачи макетов на фронтенд',
+      tasks: 'Собрал и внедрил цепочку из 5 ИИ-агентов, автоматизирующую путь от постановки задачи до готовых макетов',
+      result: '',
+      resultParts: [
+        { text: 'Срок работы над крупной задачей сократился с ' },
+        { text: '1–1.5 недель', color: 'red' },
+        { text: ' до ' },
+        { text: '3 дней', color: 'green' },
+        { text: '. Внедрено в 3 командах, в планах — ещё 23' },
+      ],
+      tags: ['Исследование', 'AI Workflow', 'Дизайн-система'],
+      role: 'Product Designer',
+      company: 'X5 Group',
+      year: '2025–2026',
+      image: '/work/ai-pipeline/object.png',
+      imageFit: 'contain',
+      richContent: [
+        {
+          type: 'task',
+          heading: 'Задача',
+          body: 'Постановка и уточнение вводных по задаче могло занимать до 2 дней — часто не хватало контекста, приходилось несколько раз возвращаться к продакту или аналитику за деталями. Дальше следовало ручное прототипирование в Figma, которое тоже съедало значительную часть времени дизайнера.\n\nДля крупных задач весь путь от постановки до передачи фронтенду занимал 1–1.5 недели.',
+        },
+        {
+          type: 'process',
+          heading: 'Как устроен пайплайн',
+          body: 'Собрал цепочку из пяти ИИ-агентов, каждый из которых закрывает свой этап:\n\n— База знаний продукта: хранит контекст о продукте — пользователей, роли, метрики, цели до 2030 года, обратную связь от пользователей. Остальные агенты обращаются к ней вместо того, чтобы каждый раз запрашивать вводные заново.\n\n— Брифер: на основе задачи и базы знаний формирует структурированный бриф — проблему, бизнес-сценарии, ограничения, критерии успеха, открытые вопросы и противоречия.\n\n— Сценарист: превращает бриф в jobs to be done и UX-сценарии.\n\n— Прототипер: собирает кликабельный прототип на реальной дизайн-системе, с учётом разных ролей в интерфейсе — можно сразу протестировать сценарий, погрумить с командой и внести правки.\n\n— Фигмач: собирает финальный артефакт в виде макетов в Figma.',
+        },
+        {
+          type: 'process',
+          noBorder: true,
+          heading: 'Как проверял качество',
+          body: 'Сравнивал результат работы пайплайна с реальными завершёнными кейсами, оценивал сроки и качество исходя из своей экспертизы. Обкатывал процесс с командой и дорабатывал агентов по обратной связи, пока результат не стал сопоставим с тем, что я делал бы руками.',
+        },
+        {
+          type: 'what-i-did',
+          heading: 'Результат',
+          richItems: [
+            [
+              { text: 'Для крупных задач срок от постановки до передачи фронтенду сократился с ' },
+              { text: '1–1.5 недель', color: 'red' },
+              { text: ' до ' },
+              { text: '3 дней', color: 'green' },
+            ],
+            [
+              { text: 'Пайплайн внедрён в ' },
+              { text: '3 командах', color: 'green' },
+              { text: ', в планах — подключение ещё 23 команд' },
+            ],
+            [
+              { text: 'Разработана среда самостоятельного развёртывания: дизайнер запускает MD-файл в Claude Code, отвечает на вопросы о своём продукте — и агент сам создаёт структуру папок и артефактов под конкретную команду, без участия автора пайплайна' },
+            ],
+          ],
+        },
+        {
+          type: 'process',
+          heading: 'Дальше',
+          body: 'Пайплайн исключает часть постоянных затрат на Figma в текущем процессе прототипирования. На основе этого родилась гипотеза: сервис-хранилище прототипов вместе с исходными данными, который может в перспективе снизить зависимость команды от Figma как единственного инструмента.',
+        },
+      ],
+    },
+    {
+      slug: 'supplier-portal',
+      number: '02',
       title: 'Портал поставщика',
       subtitle: 'Платформа для поставщиков продуктов в магазины X5 Group',
       tasks: 'Спроектировал и внедрил OCR распознавание этикеток продуктов',
@@ -58,8 +122,8 @@ export const projects: { ru: Project[]; en: Project[] } = {
       role: 'Product Designer',
       company: 'X5 Group',
       year: '2024–2025',
-      image: '/work/supplier-portal/cover.png',
-      imageFit: 'contain',
+      image: '/work/supplier-portal/mockup.png',
+      imagePosition: 'center',
       richContent: [
         {
           type: 'task',
@@ -77,6 +141,11 @@ export const projects: { ru: Project[]; en: Project[] } = {
         {
           type: 'process',
           noBorder: true,
+          heading: 'Почему OCR',
+          body: 'Прежде чем остановиться на OCR-распознавании, рассмотрели два других пути:\n\n— Доработка шаблона ручного ввода: упростить и переструктурировать форму, чтобы поставщик заполнял поля быстрее.\n\n— Интеграция с базой производителя: подтягивать данные о товаре напрямую из внешних источников, минуя ручной ввод.\n\nОба варианта отклонили: доработка формы не решала корень проблемы — данные всё равно нужно было переносить вручную с этикетки, только чуть быстрее. Интеграция с базой производителя требовала слишком много времени и ресурсов на техническую реализацию и переговоры с поставщиками данных, а полнота и качество данных в таких базах не гарантировали нужной точности. По срокам, стоимости и техническим ограничениям OCR оказался единственным решением, которое закрывало проблему в разумные сроки.',
+        },
+        {
+          type: 'process',
           heading: 'Процесс работы',
           body: 'Спроектировал интерфейс для работы с функционалом оптического распознавания этикеток (OCR). Новый флоу позволяет загрузить фото этикетки и автоматически заполнить поля карточки товара — поставщику остаётся только проверить и дополнить данные.\n\nПосле сборки прототипа провёл юзабилити-тестирование с 15 пользователями: проверял понятность интерфейса и скорость прохождения сценария добавления товара.',
         },
@@ -112,7 +181,7 @@ export const projects: { ru: Project[]; en: Project[] } = {
     },
     {
       slug: 'commercial-proposal',
-      number: '02',
+      number: '03',
       title: 'Подача коммерческого предложения',
       subtitle: 'Платформа для поставщиков продуктов в магазины X5 Group',
       tasks: 'Редизайн процесса подачи коммерческого предложения',
@@ -130,7 +199,8 @@ export const projects: { ru: Project[]; en: Project[] } = {
       role: 'Product Designer',
       company: 'X5 Group',
       year: '2024–2025',
-      hasVisual: true,
+      image: '/work/commercial-proposal/mockup.png',
+      imagePosition: 'center',
       richContent: [
         {
           type: 'task',
@@ -197,7 +267,7 @@ export const projects: { ru: Project[]; en: Project[] } = {
     },
     {
       slug: 'unification',
-      number: '03',
+      number: '04',
       title: 'Унификация продуктов',
       subtitle: 'Стандартизация UI и паттернов в 14 продуктах',
       tasks: 'Провёл аудит продуктов, собрал боли пользователей и дизайнеров',
@@ -206,7 +276,8 @@ export const projects: { ru: Project[]; en: Project[] } = {
       role: 'Product Designer',
       company: 'X5 Group',
       year: '2024–2025',
-      hasVisual: true,
+      image: '/work/unification/object.png',
+      imageFit: 'contain',
       richContent: [
         {
           type: 'task',
@@ -217,6 +288,12 @@ export const projects: { ru: Project[]; en: Project[] } = {
           type: 'process',
           heading: 'Процесс работы',
           body: 'Проведён анализ всех 14 продуктов. Составлен документ с различиями в отработке UI-элементов и паттернах взаимодействия.\n\nСформирован бэклог задач на проработку, который был распределён среди дизайнеров команды. Еженедельно проводились синки для обсуждения решений и подготовки финальных компонентов.\n\nНалажена коммуникация между дизайнерами и разработчиками для оценки сложности, времени и стоимости реализации новых компонентов.\n\nПоддержание компонентной базы на основе приходящей обратной связи от команд.',
+        },
+        {
+          type: 'process',
+          noBorder: true,
+          heading: 'Пример: боковое меню',
+          body: 'Одно из самых частых расхождений — поведение бокового меню. В разных продуктах оно вело себя по-разному: где-то было всегда свёрнуто, где-то раскрывалось по наведению курсора, где-то — по клику. Это приводило к ошибкам: пользователь наводился на пункт, чтобы кликнуть по фильтру, а вместо этого раскрывалось меню и его уводило в другой раздел.\n\nПривёл поведение к единому стандарту: меню по умолчанию свёрнуто, разворачивается по клику на кнопку внизу, а при клике на пункт меню появляется дропдаун с подпунктами. Такой подход убрал случайные срабатывания при наведении и сделал поведение предсказуемым.',
           images: ['/work/unification/process-1.png', '/work/unification/process-2.png'],
         },
         {
@@ -231,7 +308,7 @@ export const projects: { ru: Project[]; en: Project[] } = {
     },
     {
       slug: 'opora',
-      number: '04',
+      number: '05',
       title: 'ОПОРА',
       subtitle: 'Система для планирования, управления и отслеживания производства и логистики нефтепродуктов',
       tasks: 'Спроектировал гибкий инструмент работы и визуализации данных о распределении нефтепродуктов по всей цепочке поставки',
@@ -285,8 +362,72 @@ export const projects: { ru: Project[]; en: Project[] } = {
   ],
   en: [
     {
-      slug: 'supplier-portal',
+      slug: 'ai-pipeline',
       number: '01',
+      title: 'AI Agent Pipeline',
+      subtitle: 'Automating the process from task definition to design handoff to frontend',
+      tasks: 'Built and rolled out a chain of 5 AI agents automating the path from task definition to finished mockups',
+      result: '',
+      resultParts: [
+        { text: 'Time spent on a large task dropped from ' },
+        { text: '1–1.5 weeks', color: 'red' },
+        { text: ' to ' },
+        { text: '3 days', color: 'green' },
+        { text: '. Rolled out across 3 teams, with 23 more planned' },
+      ],
+      tags: ['Research', 'AI Workflow', 'Design System'],
+      role: 'Product Designer',
+      company: 'X5 Group',
+      year: '2025–2026',
+      image: '/work/ai-pipeline/object.png',
+      imageFit: 'contain',
+      richContent: [
+        {
+          type: 'task',
+          heading: 'Challenge',
+          body: 'Defining a task and clarifying its inputs could take up to 2 days — context was often missing, and I had to go back to the product manager or analyst several times for details. Manual prototyping in Figma followed, consuming another significant share of the designer\'s time.\n\nFor large tasks, the full path from definition to frontend handoff took 1–1.5 weeks.',
+        },
+        {
+          type: 'process',
+          heading: 'How the pipeline works',
+          body: 'I built a chain of five AI agents, each covering its own stage:\n\n— Product knowledge base: holds the context of the product — users, roles, metrics, goals through 2030, and user feedback. The other agents query it instead of requesting the same inputs from scratch every time.\n\n— Briefer: turns the task and the knowledge base into a structured brief — the problem, business scenarios, constraints, success criteria, open questions, and contradictions.\n\n— Scenario writer: converts the brief into jobs to be done and UX scenarios.\n\n— Prototyper: assembles a clickable prototype on the real design system, accounting for the different roles in the interface — the scenario can be tested, groomed with the team, and revised right away.\n\n— Figma builder: produces the final artefact as mockups in Figma.',
+        },
+        {
+          type: 'process',
+          noBorder: true,
+          heading: 'How I validated quality',
+          body: 'I compared the pipeline\'s output against real completed cases, assessing timelines and quality against my own expertise. I ran the process with the team and refined the agents based on feedback until the output was comparable to what I would have produced by hand.',
+        },
+        {
+          type: 'what-i-did',
+          heading: 'Results',
+          richItems: [
+            [
+              { text: 'For large tasks, the path from definition to frontend handoff shortened from ' },
+              { text: '1–1.5 weeks', color: 'red' },
+              { text: ' to ' },
+              { text: '3 days', color: 'green' },
+            ],
+            [
+              { text: 'The pipeline is live in ' },
+              { text: '3 teams', color: 'green' },
+              { text: ', with 23 more teams planned' },
+            ],
+            [
+              { text: 'Built a self-service deployment environment: a designer runs an MD file in Claude Code, answers questions about their product, and the agent creates the folder and artefact structure for that specific team — without involving the pipeline\'s author' },
+            ],
+          ],
+        },
+        {
+          type: 'process',
+          heading: 'What\'s next',
+          body: 'The pipeline removes part of the recurring Figma cost in the current prototyping process. That led to a hypothesis: a service that stores prototypes together with their source data, which could in time reduce the team\'s dependence on Figma as its only tool.',
+        },
+      ],
+    },
+    {
+      slug: 'supplier-portal',
+      number: '02',
       title: 'Supplier Portal',
       subtitle: 'Platform for product suppliers to X5 Group stores',
       tasks: 'Designed and implemented OCR-based product label recognition',
@@ -301,8 +442,8 @@ export const projects: { ru: Project[]; en: Project[] } = {
       role: 'Product Designer',
       company: 'X5 Group',
       year: '2024–2025',
-      image: '/work/supplier-portal/cover.png',
-      imageFit: 'contain',
+      image: '/work/supplier-portal/mockup.png',
+      imagePosition: 'center',
       richContent: [
         {
           type: 'task',
@@ -320,6 +461,11 @@ export const projects: { ru: Project[]; en: Project[] } = {
         {
           type: 'process',
           noBorder: true,
+          heading: 'Why OCR',
+          body: 'Before settling on OCR recognition, we considered two other routes:\n\n— Reworking the manual entry template: simplify and restructure the form so suppliers could fill in the fields faster.\n\n— Integrating with manufacturer databases: pull product data directly from external sources, bypassing manual entry altogether.\n\nWe rejected both. Reworking the form did not address the root of the problem — the data still had to be transferred from the label by hand, just slightly faster. Integrating with manufacturer databases would have required far too much time and resources, both for the technical build and for negotiations with data providers, while the completeness and quality of the data in those databases could not guarantee the accuracy we needed. Given the timeline, the cost, and the technical constraints, OCR was the only solution that resolved the problem within a reasonable timeframe.',
+        },
+        {
+          type: 'process',
           heading: 'Process',
           body: 'Designed an interface for OCR-based label recognition. The new flow lets suppliers upload a photo of a product label and have the card fields filled in automatically — they only need to review and complete the data.\n\nAfter building the prototype, I ran usability testing with 15 users: evaluating interface clarity and the speed at which participants completed the product registration scenario.',
         },
@@ -355,7 +501,7 @@ export const projects: { ru: Project[]; en: Project[] } = {
     },
     {
       slug: 'commercial-proposal',
-      number: '02',
+      number: '03',
       title: 'Commercial Proposal Submission',
       subtitle: 'Platform for product suppliers to X5 Group stores',
       tasks: 'Redesigned the commercial proposal submission process',
@@ -373,7 +519,8 @@ export const projects: { ru: Project[]; en: Project[] } = {
       role: 'Product Designer',
       company: 'X5 Group',
       year: '2024–2025',
-      hasVisual: true,
+      image: '/work/commercial-proposal/mockup.png',
+      imagePosition: 'center',
       richContent: [
         {
           type: 'task',
@@ -440,7 +587,7 @@ export const projects: { ru: Project[]; en: Project[] } = {
     },
     {
       slug: 'unification',
-      number: '03',
+      number: '04',
       title: 'Product Unification',
       subtitle: 'Standardisation of UI and patterns across 14 products',
       tasks: 'Conducted a product audit, collected pain points from users and designers',
@@ -449,7 +596,8 @@ export const projects: { ru: Project[]; en: Project[] } = {
       role: 'Product Designer',
       company: 'X5 Group',
       year: '2024–2025',
-      hasVisual: true,
+      image: '/work/unification/object.png',
+      imageFit: 'contain',
       richContent: [
         {
           type: 'task',
@@ -460,6 +608,12 @@ export const projects: { ru: Project[]; en: Project[] } = {
           type: 'process',
           heading: 'Process',
           body: 'Conducted a full audit of all 14 products and documented differences in UI element behaviour and interaction patterns.\n\nBuilt a backlog of items to address and distributed tasks across the design team. Weekly syncs were held to align on solutions and prepare final components for the design system.\n\nEstablished clear communication between designers and developers to assess the complexity, time, and cost of implementing new components.\n\nOngoing maintenance of the component library based on feedback received from product teams.',
+        },
+        {
+          type: 'process',
+          noBorder: true,
+          heading: 'Example: sidebar navigation',
+          body: 'One of the most common inconsistencies was the behaviour of the sidebar navigation. It worked differently from product to product: in some it was always collapsed, in others it expanded on hover, in others on click. This led to errors — a user would hover over an item on their way to click a filter, the menu would expand instead, and they would be taken to a different section.\n\nI brought the behaviour to a single standard: the menu is collapsed by default, expands on a click of the button at the bottom, and clicking a menu item opens a dropdown with its sub-items. This removed accidental hover triggers and made the behaviour predictable.',
           images: ['/work/unification/process-1.png', '/work/unification/process-2.png'],
         },
         {
@@ -474,7 +628,7 @@ export const projects: { ru: Project[]; en: Project[] } = {
     },
     {
       slug: 'opora',
-      number: '04',
+      number: '05',
       title: 'OPORA',
       subtitle: 'System for planning, managing and tracking petroleum product production and logistics',
       tasks: 'Designed a flexible tool for working with and visualising data on petroleum product distribution across the entire supply chain',

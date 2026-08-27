@@ -47,15 +47,14 @@ export function UnificationScene() {
       }}
     >
       <motion.div
-        className="absolute inset-0 flex items-center justify-center"
+        className="absolute inset-0 flex items-center justify-center p-10 md:p-12"
         style={{ x: springX, y: combinedY, overflow: 'visible' }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/work/unification/x5-object.png"
+          src="/work/unification/object.png"
           alt=""
-          className="w-[108%] h-auto object-contain select-none pointer-events-none"
-          style={{ mixBlendMode: 'lighten' }}
+          className="max-w-full max-h-full w-auto h-auto object-contain select-none pointer-events-none"
           draggable={false}
         />
       </motion.div>

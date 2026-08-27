@@ -58,8 +58,9 @@ const experiences: { ru: Job[]; en: Job[] } = {
         {
           heading: 'Ключевые задачи и достижения',
           items: [
-            'Запуск инструмента распознавания этикеток на основе OCR — время создания карточки товара сократилось с 1 часа до 10 минут',
-            'Участие в унификации визуального языка и UX-паттернов в 12 продуктах для поставщиков, вклад в консистентную и масштабируемую дизайн-систему',
+            'Спроектировал и внедрил пайплайн из ИИ-агентов, автоматизирующий путь от постановки задачи до передачи макетов на фронтенд — сократил срок работы над крупными задачами с 1–1.5 недель до 3 дней, внедрил в 3 командах',
+            'Запуск инструмента распознавания этикеток на основе OCR — время создания карточки товара сократилось с 6–8 часов до 30–40 минут',
+            'Участие в унификации визуального языка и UX-паттернов в 14 продуктах для поставщиков, вклад в консистентную и масштабируемую дизайн-систему',
             'Участие в сокращении полного цикла закупок с 1 месяца до 4 дней, повысив эффективность для поставщиков и внутренних команд',
             'Разработка дашбордов для мониторинга ключевых бизнес-метрик — отслеживание цепочки поставок в режиме реального времени',
             'Проектирование модуля управления и оспаривания штрафов: упрощение процессов и повышение прозрачности для поставщиков',
@@ -134,12 +135,13 @@ const experiences: { ru: Job[]; en: Job[] } = {
         {
           heading: 'Key responsibilities & achievements',
           items: [
+            'Designed and rolled out an AI agent pipeline automating the path from task definition to design handoff to frontend — cut the time spent on large tasks from 1–1.5 weeks to 3 days, adopted by 3 teams',
             'Designing and continuously evolving a B2B platform used by 70,000+ companies and 200,000+ users, supporting the full supplier journey — from submitting commercial proposals to placing products on store shelves',
             'Contributed to reducing the full procurement cycle from 1 month to just 4 days, improving efficiency for both suppliers and internal teams',
             'Worked on dashboards for tracking key business metrics, helping stakeholders monitor supply chain performance in real time',
             'Led the design of a module for managing and disputing fines, simplifying workflows and improving transparency for suppliers',
-            'Launched an OCR-powered label recognition tool that reduced product card creation time from 1 hour to 10 minutes',
-            'Took part in the unification of visual language and UX patterns across 12 supplier-facing products, contributing to a consistent and scalable design system',
+            'Launched an OCR-powered label recognition tool that reduced product card creation time from 6–8 hours to 30–40 minutes',
+            'Took part in the unification of visual language and UX patterns across 14 supplier-facing products, contributing to a consistent and scalable design system',
           ],
         },
       ],

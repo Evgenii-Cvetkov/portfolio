@@ -22,6 +22,13 @@ const talks: { ru: Talk[]; en: Talk[] } = {
       desc: 'Делился опытом, как внедрил Claude, Figma Make, ChatGPT в повседневный рабочий процесс. Показал на реальных кейсах, где ИИ ускоряет работу, а где по-прежнему нужен человек.',
       tags: ['AI tools', 'workflow', 'productivity'],
     },
+    {
+      event: 'Вебинар для дизайнеров и продактов X5 Tech',
+      date: '2026',
+      topic: 'Пайплайн из ИИ-агентов: как внедрить в команду',
+      desc: 'Провёл два вебинара, где разбирал устройство пайплайна — от базы знаний продукта до сборки макетов — и показывал, как подключить и настроить агентов под конкретную команду. Участники на практике разворачивали рабочую среду на своём продукте и разбирали, как доводить качество результата до уровня ручной работы.',
+      tags: ['AI agents', 'workflow', 'design ops'],
+    },
   ],
   en: [
     {
@@ -30,6 +37,13 @@ const talks: { ru: Talk[]; en: Talk[] } = {
       topic: "AI in a Designer's Workflow",
       desc: "Shared my experience integrating Claude, Figma Make, and ChatGPT into daily design work. Illustrated with real cases where AI accelerates delivery and where human judgment remains essential.",
       tags: ['AI tools', 'workflow', 'productivity'],
+    },
+    {
+      event: 'X5 Tech Webinar for Designers and Product Managers',
+      date: '2026',
+      topic: 'AI Agent Pipeline: Rolling It Out in a Team',
+      desc: 'Ran two webinars breaking down how the pipeline works — from the product knowledge base through to assembling mockups — and showing how to connect and configure the agents for a specific team. Participants deployed a working environment on their own product hands-on and worked through how to bring output quality up to the level of manual work.',
+      tags: ['AI agents', 'workflow', 'design ops'],
     },
   ],
 }
