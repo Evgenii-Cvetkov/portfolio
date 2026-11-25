@@ -1,0 +1,98 @@
+name: Deploy portfolio to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+      - name: Install dependencies
+        run: npm ci
+      - name: Prepare static export without changing the Vercel source
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: |
+          python3 - <<'PY'
+          import os
+          import json
+          import re
+          from pathlib import Path
+
+          base = os.environ['BASE_PATH'].rstrip('/')
+          config = Path('next.config.ts')
+          config.write_text('import type { NextConfig } from "next";\n'
+              'const nextConfig: NextConfig = { output: "export", trailingSlash: true, '
+              'basePath: ' + json.dumps(base) + ', images: { unoptimized: true } };\n'
+              'export default nextConfig;\n')
+
+          route = Path('app/work/[slug]/page.tsx')
+          if 'generateStaticParams' not in route.read_text():
+              with route.open('a') as file:
+                  file.write("\nimport { projects } from '@/lib/projects'\n"
+                      "export const dynamicParams = false\n"
+                      "export function generateStaticParams() {\n"
+                      "  return projects.ru.map(({ slug }) => ({ slug }))\n}\n")
+
+          # Next Link handles basePath automatically. Public files and plain anchors do not.
+          pattern = re.compile(r"(['\"])(/[^'\"\n]+)\1")
+          for folder in ['app', 'components', 'lib']:
+              for source in Path(folder).rglob('*.tsx' if folder != 'lib' else '*.ts'):
+                  content = source.read_text()
+                  def prefix(match):
+                      quote, asset = match.groups()
+                      return quote + base + asset + quote if Path('public' + asset).is_file() else match.group(0)
+                  updated = pattern.sub(prefix, content)
+                  if source.name == 'Navbar.tsx':
+                      updated = updated.replace('href="/"', 'href="' + base + '/"')
+                  if updated != content:
+                      source.write_text(updated)
+          PY
+      - name: Build static site
+        run: npm run build
+      - name: Verify exported pages
+        run: |
+          test -f out/index.html
+          for slug in ai-pipeline supplier-portal commercial-proposal unification opora; do
+            test -f "out/work/$slug/index.html"
+          done
+          test -f out/photo.jpg
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: out
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
